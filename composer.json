@@ -1,0 +1,15 @@
+{
+    "name": "danilo/chess",
+    "autoload": {
+        "psr-4": {
+            "Danilo\\Chess\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Glukochael",
+            "email": "danyamanson12@gmail.com"
+        }
+    ],
+    "require": {}
+}
