@@ -39,6 +39,15 @@ class Board
 			return $this->pieces[$index];
 		}
 		return null;
+        /**
+         * не думаю, что тут стоит использовать array_search. лучше сделать для Position метод equals, где сравнить x, y
+         * $index = array_search($position, $this->positions);
+         * if ($index === false) {
+         *      return null;
+         * }
+         *
+         * return $this->pieces[$index];
+         */
 	}
 
 	public function getPositions(): array

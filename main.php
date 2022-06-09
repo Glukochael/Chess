@@ -28,7 +28,7 @@ $graphic->draw($board);
 $position = new Position(3, 6);
 $piece = $board->getPieceByPosition($position);
 $movablePositions = $piece->getMovesets();
-$factory = new FilterFactory;
-$filter = $factory->getFilter($piece);
+$factory = new FilterFactory;//лучше писать скобки. потому что единый стиль это важно. выше у тебя почему-то определяются со скобками.
+$filter = $factory->getFilter($piece);//ByPiece?
 print_r($filter->filterPositions($piece, $position, $movablePositions, $board));
 //print_r($board->getPieces());
