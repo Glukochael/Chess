@@ -2,7 +2,7 @@
     "name": "danilo/chess",
     "autoload": {
         "psr-4": {
-            "Danilo\\Chess\\": "src/"
+            "Chess\\": "src\\Chess"
         }
     },
     "authors": [
