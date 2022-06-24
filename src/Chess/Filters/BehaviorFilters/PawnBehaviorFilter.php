@@ -8,9 +8,9 @@ use Chess\Pieces\Piece;
 use Chess\Board\Board;
 use Chess\Filters\BehaviorFilters\BehaviorFilter;
 
-class PawnBehaviorFilter extends BehaviorFilter
+class PawnBehaviorFilter implements BehaviorFilter
 {
-	public function filterPosition(Piece $piece, Position $piecePosition, Position $position, Board $board)
+	public function filterPosition(Piece $piece, Position $piecePosition, Position $position, Board $board): bool
 	{
 		$colorShift = $piece->getColor();
 		$barrier = $this->hasBarrier($piece, $piecePosition, $board);
@@ -23,18 +23,18 @@ class PawnBehaviorFilter extends BehaviorFilter
 				return false;
 			}	
 			elseif ($barrier == 2) {
-				if ($position == $oneSquareMove) {
+				if ($position->equals($oneSquareMove)) {
 					return true;
 				}
 			}
 			else {
 				if ($startPosition) {
-					if ($position == $oneSquareMove or $position == $twoSquareMove) {
+					if ($position->equals($oneSquareMove) or $position->equals($twoSquareMove)) {
 						return true;
 					}
 				}
 				else {
-					if ($position == $oneSquareMove) {
+					if ($position->equals($oneSquareMove)) {
 						return true;
 					}
 				}
@@ -50,7 +50,7 @@ class PawnBehaviorFilter extends BehaviorFilter
 	private function isStartPawnPosition(Position $piecePosition): bool
 	{
 		$x = $piecePosition->getXCoordinate();
-		if ($piecePosition === new Position($x, 1) or new Position($x, HEIGHT - 2)) {
+		if ($piecePosition->equals(new Position($x, 1)) or $piecePosition->equals(new Position($x, HEIGHT - 2))) {
 			return true;
 		}
 		return false;
@@ -59,9 +59,12 @@ class PawnBehaviorFilter extends BehaviorFilter
 	private function isAttackPosition(Piece $piece, Position $piecePosition, Position $position, Board $board): bool
 	{
 		$colorShift = $piece->getColor();
+        $attackPiece = $board->getPieceByPosition($position);
 		if ($position === $piecePosition->additionPositions(new Position(-$colorShift, $colorShift)) or $piecePosition->additionPositions(new Position($colorShift, $colorShift))) {
-			if ($board->getPieceByPosition($position) !== null) {
-				return true;
+			if ($attackPiece !== null) {
+				if ($attackPiece->getColor() !== $piece->getColor()) {
+                    return true;
+                }
 			}
 		}
 		return false;

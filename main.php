@@ -24,11 +24,15 @@ use Chess\Filters\BehaviorFilters\BehaviorFilter;
 $board = new Board();
 $graphic = new GraphicSystem();
 $board->setStartPosition();
-$graphic->draw($board);
-$position = new Position(3, 6);
+$position = new Position(1, 7);
+$board->addPiece(new Position(2, 5), new Pawn(BLACK));
 $piece = $board->getPieceByPosition($position);
 $movablePositions = $piece->getMovesets();
-$factory = new FilterFactory;//лучше писать скобки. потому что единый стиль это важно. выше у тебя почему-то определяются со скобками.
-$filter = $factory->getFilter($piece);//ByPiece?
+$factory = new FilterFactory();
+$filter = $factory->getFilterByPiece($piece);
+
 print_r($filter->filterPositions($piece, $position, $movablePositions, $board));
+$rook = $board->getPieceByPosition(new Position(0, 0));
+$knight = $board->getPieceByPosition(new Position(1, 7));
+$graphic->draw($board);
 //print_r($board->getPieces());

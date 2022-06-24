@@ -13,5 +13,6 @@ class Rook extends Piece
 	{
 		parent::__construct($color);
 		$this->behaviors = [new RookBehavior];
+        $this->setMovablePositions();
 	}
 }

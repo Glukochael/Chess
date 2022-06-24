@@ -15,5 +15,6 @@ class Queen extends Piece
 	{
 		parent::__construct($color);
 		$this->behaviors = [new RookBehavior, new BishopBehavior];
+        $this->setMovablePositions();
 	}
 }

@@ -5,17 +5,15 @@ namespace Chess\Behaviors;
 
 use Chess\Position;
 
-class PawnBehavior extends Behavior
+class PawnBehavior implements Behavior
 {
-	public function getMovablePositions($colorOffset): array
+	public function getMovablePositions(): array
 	{
-        //зачем так? зачем промежуточная переменная, когда можно сразу вернуть результат.
-		$movablePositions = [
-			new Position(0, $colorOffset), 
-			new Position(0, $colorOffset + $colorOffset), 
-			new Position($colorOffset, $colorOffset), 
-			new Position(-$colorOffset, $colorOffset),
+		return [
+			new Position(0, 1),
+			new Position(0, 2),
+			new Position(1, 1),
+			new Position(-1, 1),
 		];
-		return $movablePositions;
 	}
 } 

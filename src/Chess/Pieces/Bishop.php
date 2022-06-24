@@ -13,5 +13,6 @@ class Bishop extends Piece
 	{
 		parent::__construct($color);
 		$this->behaviors = [new BishopBehavior];
+        $this->setMovablePositions();
 	}
 }

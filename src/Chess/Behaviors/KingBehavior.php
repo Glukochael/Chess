@@ -5,12 +5,11 @@ namespace Chess\Behaviors;
 
 use Chess\Position;
 
-class KingBehavior extends Behavior
+class KingBehavior implements Behavior
 {
-	public function getMovablePositions($colorOffset): array
+	public function getMovablePositions(): array
 	{
-        //а тут зачем переменную создавать?
-		return $movablePositions = [
+		return [
 			new Position(-1, 0),
 			new Position(-1, 1),
 			new Position(0, 1),

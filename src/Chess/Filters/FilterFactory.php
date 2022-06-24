@@ -12,24 +12,22 @@ class FilterFactory
 {
 	private array $filters = [];
 
-	public function getFilter(Piece $piece): Filter
+	public function getFilterByPiece(Piece $piece): Filter
 	{
-        //мне кажется, что это плохой способ вот так расковыривать путь.
 		$className = explode('\\', get_class($piece));
-		if (array_key_exists(end($className), $this->filters)) {
-            //чего блеать. используешь объект как ключ?
-			return $this->filters[$piece];
+        $className = end($className);
+		if (array_key_exists($className, $this->filters)) {
+			return $this->filters[$className];
 		}
 		$filtersOfBehavior = [];
 		foreach ($piece->getBehaviors() as $behavior) {
 			$path = explode("\\", get_class($behavior));
 			$fullNameBehaviorFilter = '\Chess\Filters\BehaviorFilters\\' . end($path) . 'Filter';
-            //ты тут даже не проверяешь, существует ли такой класс. можно дико обосраться
-			$filtersOfBehavior[] = new $fullNameBehaviorFilter();
+            if (class_exists($fullNameBehaviorFilter)) {
+                $filtersOfBehavior[] = new $fullNameBehaviorFilter();
+            }
 		}
-        //нахера постоянно делать этот end(className)? почему нельзя сделать это один раз?
-		$this->filters[end($className)] = new Filter($filtersOfBehavior);
-        //нахера сначала класть, а потом доставать? работы мало?
-		return $this->filters[end($className)];
+		$this->filters[$className] = new Filter($filtersOfBehavior);
+		return $this->filters[$className];
 	}
 }

@@ -6,9 +6,9 @@ namespace Chess\Behaviors;
 use Chess\Position;
 use Chess\Behaviors\Behavior;
 
-class RookBehavior extends Behavior
+class RookBehavior implements Behavior
 {
-	public function getMovablePositions($colorOffset): array
+	public function getMovablePositions(): array
 	{
 		$movablePositions = [];
 		for ($shift = 1; $shift <= HEIGHT || $shift <= WIDTH; $shift++) {

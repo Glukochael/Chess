@@ -18,13 +18,14 @@ class Board
 		$this->pieces[] = $piece;
 	}
 
-	public function removePieceByPosition(Position $position):void
+	public function removePieceByPosition(Position $position): void
 	{
-		$removeKey = array_search($position, $this->positions);
-		if ($removeKey !== false) {
-			array_splice($this->positions, $removeKey, 1);
-			array_splice($this->pieces, $removeKey, 1);
-		}
+        foreach ($this->positions as $index => $piecePosition) {
+            if ($piecePosition->equals($position)) {
+                array_splice($this->positions, $index, 1);
+                array_splice($this->pieces, $index, 1);
+            }
+        }
 	}
 
 	public function getPieces(): array
@@ -34,20 +35,12 @@ class Board
 
 	public function getPieceByPosition(Position $position): ?Piece
 	{
-		$index = array_search($position, $this->positions);
-		if ($index !== false) {
-			return $this->pieces[$index];
-		}
+		foreach ($this->positions as $index => $piecePosition) {
+            if ($piecePosition->equals($position)) {
+                return $this->pieces[$index];
+            }
+        }
 		return null;
-        /**
-         * не думаю, что тут стоит использовать array_search. лучше сделать для Position метод equals, где сравнить x, y
-         * $index = array_search($position, $this->positions);
-         * if ($index === false) {
-         *      return null;
-         * }
-         *
-         * return $this->pieces[$index];
-         */
 	}
 
 	public function getPositions(): array

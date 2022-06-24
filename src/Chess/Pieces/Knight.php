@@ -13,5 +13,6 @@ class Knight extends Piece
 	{
 		parent::__construct($color);
 		$this->behaviors = [new KnightBehavior];
+        $this->setMovablePositions();
 	}
 }

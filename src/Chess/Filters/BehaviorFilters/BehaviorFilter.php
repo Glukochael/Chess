@@ -7,7 +7,7 @@ use Chess\Position;
 use Chess\Pieces\Piece;
 use Chess\Board\Board;
 
-abstract class BehaviorFilter
+Interface BehaviorFilter
 {
-	abstract function filterPosition(Piece $piece, Position $piecePosition, Position $position, Board $board);
+	public function filterPosition(Piece $piece, Position $piecePosition, Position $position, Board $board);
 }

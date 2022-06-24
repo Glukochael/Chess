@@ -13,5 +13,6 @@ class King extends Piece
 	{
 		parent::__construct($color);
 		$this->behaviors = [new KingBehavior];
+        $this->setMovablePositions();
 	}
 }
